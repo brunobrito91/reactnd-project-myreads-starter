@@ -4,13 +4,25 @@ import BookDetails from './BookDetails';
 
 class BookInformation extends React.Component {
 
+    onShelfChange = (event) => {
+        this.props.onShelfChange(this.props.id, event.target.value);
+    };
+
     render() {
+        const { title, authors, thumbnail, shelf } = this.props;
         return (
             <div className="book">
                 <div className="book-top">
-                    <div className="book-cover" style={this.props.style}></div>
+                    <div className="book-cover" style={
+                        {
+                            width: 128, 
+                            height: 192,
+                            backgroundImage:"url(" + thumbnail + ")"
+                        }    
+                    }
+                    />
                     <div className="book-shelf-changer">
-                        <select>
+                        <select value={shelf} onChange={this.onShelfChange}>
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -19,7 +31,7 @@ class BookInformation extends React.Component {
                         </select>
                     </div>
                 </div>
-                <BookDetails title={this.props.title} author={this.props.author} />
+                <BookDetails title={title} authors={authors} />
             </div>
         )
     }
