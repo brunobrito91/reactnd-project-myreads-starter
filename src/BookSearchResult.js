@@ -2,30 +2,28 @@ import React from 'react';
 import './App.css';
 import Book from './Book';
 
-class BookShelf extends React.Component {
+class BookSearchResult extends React.Component {
 
     render() {
-        const { title, books, onShelfChange } = this.props;
+        const { result, onShelfChange } = this.props;
         return (
-            <div className="bookshelf">
-                <h2 className="bookshelf-title">{title}</h2>
-                <div className="bookshelf-books">
+            result !== null ?
+                <div className="search-books-results">
                     <ol className="books-grid">
-                        {books.map((book) => {
+                        {result.length > 0 ? result.map((book) => {
                             return (
-                                <li key={book.id}>
+                                <li key={book.title + "-" + book.id}>
                                     <Book
                                         book={book}
                                         onShelfChange={onShelfChange}
                                     />
                                 </li>
                             )
-                        })}
+                        }) : <div>No results</div>}
                     </ol>
-                </div>
-            </div>
+                </div> : <div></div>
         )
     }
 }
 
-export default BookShelf
+export default BookSearchResult
